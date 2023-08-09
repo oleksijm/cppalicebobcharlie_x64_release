@@ -8,10 +8,18 @@
 #include <codecvt>
 
 
-//last update on 04.03.2023 - Trying to make it work in Unicode - works on 04.03.2023!!! runs in release mode (multibyte encoding setting) also.
+
+
+//last update on 04.03.2023 - works in Unicode on 04.03.2023!!! runs in release mode (multibyte encoding setting) also.
+// rechecked on 09.08.2023 - works with max number of Excel rows. For larger numbers the program needs to be rewritten to
+// accommodate larger data types for numbers:
+// __int64 or
+// unsigned __int64
+// file name length limit as of now: 49 characters
 // uses deprecation warning turn off for codecvt. 
 //in this module I will try to learn to do calculations. Maybe play around with data structures?
 
+//function prototype
 std::wstring convert(const std::string& input);
 
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
