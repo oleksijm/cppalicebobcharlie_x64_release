@@ -10,7 +10,8 @@
 
 
 
-//last update on 04.03.2023 - works in Unicode on 04.03.2023!!! runs in release mode (multibyte encoding setting) also.
+//last update on 13.08.2023 - trying to make it work for unsigned __int64 and the output in the win32 - IS WORKING if CSV has pure integers..
+// ..and no decimals.
 // rechecked on 09.08.2023 - works with max number of Excel rows. For larger numbers the program needs to be rewritten to
 // accommodate larger data types for numbers:
 // __int64 or
@@ -194,27 +195,33 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 
 			std::string line;
 
-			std::map<std::string, int> data;
+			//std::map<std::string, int> data;
+			std::map<std::string, unsigned __int64> data;
 
 			while (std::getline(inputFile, line))
 			{
 				std::stringstream inputString(line);
 				std::string firstName;
 				std::wstring WfirstName;
-				int Number;
+				//int Number;
+				unsigned __int64 NumberL;
 				std::string tempString;
 				std::wstring WtempString;
 
 				getline(inputString, firstName, ',');
 				getline(inputString, tempString);
-				Number = atoi(tempString.c_str());
+				//Number = atoi(tempString.c_str());
+				//NumberL = _atoi64(tempString.c_str());
+				NumberL = std::strtoull(tempString.c_str(),NULL, 0);
 
 				if (data.count(firstName) == 0) {
 					WfirstName = convert(firstName);
-					data[firstName] = Number;
+					//data[firstName] = Number;
+					data[firstName] = NumberL;
 				}
 				else {
-					data[firstName] += Number;
+					//data[firstName] += Number;
+					data[firstName] += NumberL;
 				}
 
 
